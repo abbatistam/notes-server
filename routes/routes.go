@@ -12,9 +12,14 @@ func Routes(app *fiber.App) {
 	api := app.Group("/api", logger.New())
 
 	// Productos
-	notes := api.Group("/notes")
-	notes.Get("/", handlers.GetAllNotes)
-	notes.Post("/", handlers.NewNote)
-	notes.Put("/:id", handlers.EditNote)
-	notes.Delete("/:id", handlers.DeleteNote)
+	product := api.Group("/products")
+	product.Get("/", handlers.GetAllProducts)
+	product.Post("/", handlers.NewProduct)
+	product.Put("/:id", handlers.EditProduct)
+	product.Delete("/:id", handlers.DeleteProduct)
+
+	// Files
+	files := api.Group("/files")
+	files.Static("/imgs", "./imgs")
+	files.Post("/", handlers.UploadMultiFiles)
 }
